@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/GitHub-Siwarta.iml" filepath="$PROJECT_DIR$/GitHub-Siwarta.iml" />
       <module fileurl="file://$PROJECT_DIR$/Siwarta.iml" filepath="$PROJECT_DIR$/Siwarta.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/Siwarta-app.iml" filepath="$PROJECT_DIR$/app/Siwarta-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
