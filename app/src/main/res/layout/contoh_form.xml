@@ -11,15 +11,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- TODO: jangan lupa tambahkan padding LinearLayout ini -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/ActivityPadding">
 
+            <!-- TODO: isikan di sini widget untuk mengisi form seperti TextView dan TextInputLayout -->
             <TextView
-                android:text="Contoh Widget"
+                android:text="Hak akses"
+                android:textSize="@dimen/title_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <net.xpece.android.support.widget.XpAppCompatSpinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_margin_top"
+                android:entries="@array/hak_akses"
+                android:theme="@style/ThemeOverlay.Material.Spinner"
+                style="@style/Widget.Material.Spinner"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/title_margin_top"
+                android:textSize="@dimen/title_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/et_nama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_margin_top"
+                android:textSize="@dimen/entry_size"
+                android:hint="Nama"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

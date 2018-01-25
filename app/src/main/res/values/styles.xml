@@ -10,4 +10,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ActivityPadding">
+        <item name="android:paddingBottom">@dimen/activity_padding_vertical</item>
+        <item name="android:paddingTop">@dimen/activity_padding_vertical</item>
+        <item name="android:paddingRight">@dimen/activity_padding_horizontal</item>
+        <item name="android:paddingLeft">@dimen/activity_padding_horizontal</item>
+    </style>
+
 </resources>

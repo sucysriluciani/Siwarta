@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="hak_akses">
+        <item>Admin</item>
+        <item>Wartawan</item>
+        <item>User biasa</item>
+    </string-array>
+
+
+</resources>
