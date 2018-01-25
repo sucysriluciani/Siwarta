@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Siwarta</string>
+    <string name="empty_warning">Tidak boleh kosong</string>
 </resources>

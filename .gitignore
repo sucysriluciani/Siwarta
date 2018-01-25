@@ -7,3 +7,7 @@
 /build
 /captures
 .externalNativeBuild
+/mockup
+/keystore
+/app/google-services.json
+/app/release
