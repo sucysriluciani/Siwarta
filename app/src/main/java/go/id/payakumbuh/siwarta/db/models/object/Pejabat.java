@@ -10,6 +10,8 @@ import java.util.List;
 
 import go.id.payakumbuh.siwarta.App;
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -23,18 +25,26 @@ public class Pejabat extends RealmObject {
 
     private static final OkHttpClient client = new OkHttpClient();
 
+    @PrimaryKey
+    public int id;
     public String nama, nip, jabatan, warna, no_hp, eselon;
+
+    @Ignore
+    public int id_opd;
+
     public Opd opd;
 
     public static Pejabat fromJSON(JSONObject o) throws JSONException {
         Pejabat pejabat = new Pejabat();
+        pejabat.id = o.getInt("id_pejabat");
         pejabat.nip = o.getString("nip");
-        pejabat.nama = o.getString("nama");
+        pejabat.nama = o.getString("nm_pejabat");
         pejabat.jabatan = o.getString("jabatan");
         pejabat.warna = o.getString("warna");
         pejabat.no_hp = o.getString("no_hp");
         pejabat.eselon = o.getString("eselon");
         pejabat.opd = Opd.fromJSON(o.getJSONObject("opd"));
+        pejabat.id_opd = pejabat.opd.id;
         return pejabat;
     }
 

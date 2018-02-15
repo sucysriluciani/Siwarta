@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import go.id.payakumbuh.siwarta.App;
+import go.id.payakumbuh.siwarta.R;
 import go.id.payakumbuh.siwarta.db.models.object.Opd;
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
@@ -34,6 +35,7 @@ public class UserOpd extends RealmObject implements BaseLogin {
     private static final OkHttpClient client = new OkHttpClient();
 
     @PrimaryKey
+    private int id;
     private String username;
     private String nama;
     private int level;
@@ -45,6 +47,16 @@ public class UserOpd extends RealmObject implements BaseLogin {
 
     @Ignore
     public int id_opd;
+
+    @Override
+    public int getIcon() {
+        return R.drawable.ic_person_black_24dp;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
 
     @Override
     public int getLevel() {
@@ -59,6 +71,11 @@ public class UserOpd extends RealmObject implements BaseLogin {
     @Override
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -78,19 +95,22 @@ public class UserOpd extends RealmObject implements BaseLogin {
 
     static UserOpd fromJSON(JSONObject o) throws JSONException {
         UserOpd userOpd = new UserOpd();
+        userOpd.setId(o.getInt("id_user"));
         userOpd.username = o.getString("username");
-        userOpd.nama = o.getString("nama");
+        userOpd.nama = o.getString("nm_user");
         userOpd.level = LEVEL_OPD;
         userOpd.domain = o.getString("domain");
         userOpd.lock = o.getBoolean("lock");
         userOpd.waktu = new Date(o.getLong("waktu"));
         userOpd.opd = Opd.fromJSON(o.getJSONObject("opd"));
+        userOpd.id_opd = userOpd.opd.id;
         return userOpd;
     }
 
     static void saveSession(Context context, UserOpd userOpd){
         SharedPreferences preferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE);
         preferences.edit()
+                .putInt("id", userOpd.id)
                 .putInt("id_opd", userOpd.opd.id)
                 .putInt("level", userOpd.level)
                 .putLong("waktu", userOpd.waktu.getTime())
@@ -103,6 +123,7 @@ public class UserOpd extends RealmObject implements BaseLogin {
 
     static UserOpd getSession(SharedPreferences preferences){
         UserOpd opd = new UserOpd();
+        opd.setId(preferences.getInt("id", 0));
         opd.level = preferences.getInt("level", LEVEL_OPD);
         opd.waktu = new Date(preferences.getLong("waktu", System.currentTimeMillis()));
         opd.nama = preferences.getString("nama", null);

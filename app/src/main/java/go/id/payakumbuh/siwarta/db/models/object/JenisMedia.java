@@ -58,8 +58,8 @@ public class JenisMedia extends RealmObject {
 
     static JenisMedia fromJSON(JSONObject o) throws JSONException {
         JenisMedia jenisMedia = new JenisMedia();
-        jenisMedia.id = o.getInt("id");
-        jenisMedia.nama = o.getString("nama");
+        jenisMedia.id = o.getInt("id_jn");
+        jenisMedia.nama = o.getString("nm_jn");
         return jenisMedia;
     }
 }

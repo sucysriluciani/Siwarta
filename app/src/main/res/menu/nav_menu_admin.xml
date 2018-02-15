@@ -5,7 +5,8 @@
         android:checkableBehavior="single">
 
         <item android:id="@+id/nav_account_opd"
-            android:title="Akun OPD"/>
+            android:title="Akun OPD"
+            android:checked="true"/>
 
         <item android:id="@+id/nav_account_wartawan"
             android:title="Akun wartawan"/>

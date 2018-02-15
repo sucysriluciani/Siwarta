@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import go.id.payakumbuh.siwarta.App;
+import go.id.payakumbuh.siwarta.R;
 import go.id.payakumbuh.siwarta.db.models.object.Media;
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
@@ -35,17 +36,27 @@ public class Wartawan extends RealmObject implements BaseLogin {
     private static final OkHttpClient client = new OkHttpClient();
 
     @PrimaryKey
-    private String username;
-    private String nama;
+    private int id;
+    private String nama, username;
     private int level;
     public boolean lock, setuju;
     public Date waktu;
     public String alamat, kontak, email;
 
-    public Media media;
-
     @Ignore
     public int id_media;
+
+    public Media media;
+
+    @Override
+    public int getIcon() {
+        return R.drawable.ic_person_black_24dp;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
 
     @Override
     public int getLevel() {
@@ -60,6 +71,11 @@ public class Wartawan extends RealmObject implements BaseLogin {
     @Override
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -79,6 +95,7 @@ public class Wartawan extends RealmObject implements BaseLogin {
 
     static Wartawan fromJSON(JSONObject o) throws JSONException {
         Wartawan wartawan = new Wartawan();
+        wartawan.setId(o.getInt("id_user"));
         wartawan.username = o.getString("username");
         wartawan.nama = o.getString("nm_user");
         wartawan.lock = o.getBoolean("lock");
@@ -89,12 +106,14 @@ public class Wartawan extends RealmObject implements BaseLogin {
         wartawan.waktu = new Date(o.getLong("waktu"));
         wartawan.level = LEVEL_WARTAWAN;
         wartawan.media = Media.fromJSON(o.getJSONObject("media"));
+        wartawan.id_media = wartawan.media.id;
         return wartawan;
     }
 
     static void saveSession(Context context, Wartawan wartawan){
         SharedPreferences preferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE);
         preferences.edit()
+                .putInt("id", wartawan.id)
                 .putInt("level", wartawan.level)
                 .putInt("id_media", wartawan.media.id)
                 .putLong("waktu", wartawan.waktu.getTime())
@@ -110,6 +129,7 @@ public class Wartawan extends RealmObject implements BaseLogin {
 
     static Wartawan getSession(SharedPreferences preferences){
         Wartawan wartawan = new Wartawan();
+        wartawan.setId(preferences.getInt("id", 0));
         wartawan.level = preferences.getInt("level", LEVEL_OPD);
         wartawan.id_media = preferences.getInt("id_media", 0);
         wartawan.waktu = new Date(preferences.getLong("waktu", System.currentTimeMillis()));

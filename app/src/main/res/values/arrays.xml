@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="hak_akses">
-        <item>Admin</item>
+        <item>Organisasi Perangkat Daerah</item>
         <item>Wartawan</item>
-        <item>User biasa</item>
+        <item>Admin</item>
+        <item>Super Admin</item>
     </string-array>
 
 

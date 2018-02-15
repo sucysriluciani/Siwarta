@@ -6,10 +6,20 @@ package go.id.payakumbuh.siwarta.db.models.login;
 
 public interface BaseLogin {
 
+    String[] TABLE_HAK_AKSES = {
+            "tb_user",
+            "tb_wartawan",
+            "user_admin",
+            "user_superadmin"
+    };
+
+    int getIcon();
+    int getId();
     int getLevel();
     String getNama();
     String getUsername();
 
+    void setId(int id);
     void setLevel(int level);
     void setNama(String nama);
     void setUsername(String username);

@@ -10,6 +10,7 @@ import java.util.List;
 
 import go.id.payakumbuh.siwarta.App;
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -29,14 +30,18 @@ public class Media extends RealmObject {
     public int id;
     public String nama, alamat;
 
+    @Ignore
+    public int id_jenis;
+
     public JenisMedia jenisMedia;
 
     public static Media fromJSON(JSONObject o) throws JSONException {
         Media media = new Media();
-        media.id = o.getInt("id");
-        media.nama = o.getString("nama");
+        media.id = o.getInt("id_media");
+        media.nama = o.getString("nm_media");
         media.alamat = o.getString("alamat");
         media.jenisMedia = JenisMedia.fromJSON(o.getJSONObject("jenis_media"));
+        media.id_jenis = media.jenisMedia.id;
         return media;
     }
 

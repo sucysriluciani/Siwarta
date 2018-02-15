@@ -9,10 +9,13 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import net.xpece.android.support.widget.XpAppCompatSpinner;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import go.id.payakumbuh.siwarta.R;
+import go.id.payakumbuh.siwarta.db.models.login.BaseLogin;
 import go.id.payakumbuh.siwarta.db.models.login.BaseUser;
 import go.id.payakumbuh.siwarta.util.NetworkUtils;
 import go.id.payakumbuh.siwarta.util.ViewUtils;
@@ -24,6 +27,7 @@ public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.til_username) TextInputLayout inputUsername;
     @BindView(R.id.til_password) TextInputLayout inputPassword;
+    @BindView(R.id.spinner) XpAppCompatSpinner spinner;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class LoginActivity extends BaseActivity {
             inputPassword.getEditText().setCompoundDrawablesWithIntrinsicBounds(null, null, ViewUtils.setDrawableTint(
                     ContextCompat.getDrawable(this, R.drawable.ic_lock_black_24dp),
                     ContextCompat.getColor(this, R.color.colorPrimary)), null);
+            // TODO: 15/02/18 remove on release
+            spinner.setSelection(2);
         }
     }
 
@@ -63,7 +69,8 @@ public class LoginActivity extends BaseActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final boolean sukses = BaseUser.loginOnline(LoginActivity.this, username, password);
+                final boolean sukses = BaseUser.loginOnline(LoginActivity.this,
+                        username, password, BaseLogin.TABLE_HAK_AKSES[spinner.getSelectedItemPosition()]);
                 inputPassword.post(new Runnable() {
                     @Override
                     public void run() {

@@ -31,8 +31,8 @@ public class Opd extends RealmObject {
 
     public static Opd fromJSON(JSONObject o) throws JSONException {
         Opd opd = new Opd();
-        opd.id = o.getInt("id");
-        opd.nama = o.getString("nama");
+        opd.id = o.getInt("id_skpd");
+        opd.nama = o.getString("nm_skpd");
         opd.alamat = o.getString("alamat");
         opd.kontak = o.getString("kontak");
         return opd;

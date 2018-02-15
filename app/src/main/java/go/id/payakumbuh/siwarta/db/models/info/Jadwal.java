@@ -13,6 +13,7 @@ import go.id.payakumbuh.siwarta.App;
 import go.id.payakumbuh.siwarta.db.models.object.Opd;
 import go.id.payakumbuh.siwarta.db.models.object.Pejabat;
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -33,18 +34,25 @@ public class Jadwal extends RealmObject {
     public String kegiatan, tempat, kontak;
     public Date tgl_kegiatan;
 
+    @Ignore
+    public int id_opd;
+    @Ignore
+    public int id_pejabat;
+
     public Opd opd;
     public Pejabat pejabat;
 
     static Jadwal fromJSON(JSONObject o) throws JSONException {
         Jadwal jadwal = new Jadwal();
-        jadwal.id = o.getInt("id");
+        jadwal.id = o.getInt("id_jadwal");
         jadwal.kegiatan = o.getString("kegiatan");
         jadwal.tempat = o.getString("tempat");
         jadwal.kontak = o.getString("kontak");
         jadwal.tgl_kegiatan = new Date(o.getLong("tgl_kegiatan"));
         jadwal.opd = Opd.fromJSON(o.getJSONObject("opd"));
         jadwal.pejabat = Pejabat.fromJSON(o.getJSONObject("pejabat"));
+        jadwal.id_opd = jadwal.opd.id;
+        jadwal.id_pejabat = jadwal.pejabat.id;
         return jadwal;
     }
 
@@ -52,7 +60,7 @@ public class Jadwal extends RealmObject {
      * Mengambil satu {@link Jadwal} dari database.
      */
     public static Jadwal getJadwal(int id){
-        String url = App.HOST_URL + "media.php";
+        String url = App.HOST_URL + "jadwal.php";
         HttpUrl urlBuilder = HttpUrl.parse(url).newBuilder()
                 .addQueryParameter("id", id + "")
                 .build();
@@ -77,7 +85,7 @@ public class Jadwal extends RealmObject {
      * Mengambil semua Jadwal dari database
      */
     public static List<Jadwal> getJadwal(){
-        String url = App.HOST_URL + "media.php";
+        String url = App.HOST_URL + "jadwal.php";
         HttpUrl urlBuilder = HttpUrl.parse(url).newBuilder().build();
         Request request = new Request.Builder()
                 .url(urlBuilder.url())

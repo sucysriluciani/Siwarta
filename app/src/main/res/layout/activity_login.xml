@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/ic_person_black_24dp"
-            android:text="ernita_admin"
+            android:text="admin"
             android:hint="Username" />
     </android.support.design.widget.TextInputLayout>
 
@@ -57,9 +57,23 @@
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/ic_lock_black_24dp"
             android:hint="Password"
-            android:text="c49330f26e63b7f58da5efe7f5490365"
+            android:text="bde7d555e88eb239704aa67e2a57f43d"
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
+
+    <net.xpece.android.support.widget.XpAppCompatSpinner
+        android:id="@+id/spinner"
+        style="@style/Widget.Material.Spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/content_margin_top"
+        android:entries="@array/hak_akses"
+        android:theme="@style/ThemeOverlay.Material.Spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_password" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_login"
@@ -67,11 +81,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:textColor="@android:color/white"
         android:text="LOGIN"
         app:backgroundTint="?colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_password" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 </android.support.constraint.ConstraintLayout>

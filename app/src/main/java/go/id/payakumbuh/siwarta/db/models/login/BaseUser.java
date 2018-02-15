@@ -38,9 +38,20 @@ public class BaseUser extends RealmObject implements BaseLogin {
     private static final OkHttpClient client = new OkHttpClient();
 
     @PrimaryKey
+    private int id;
     private String username;
     private int level;
     private String nama;
+
+    @Override
+    public int getIcon() {
+        return R.drawable.ic_person_black_24dp;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
 
     @Override
     public int getLevel() {
@@ -58,6 +69,11 @@ public class BaseUser extends RealmObject implements BaseLogin {
     }
 
     @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
     public void setLevel(int level) {
         this.level = level;
     }
@@ -72,30 +88,18 @@ public class BaseUser extends RealmObject implements BaseLogin {
         this.username = username;
     }
 
-    public int getIconId(){
-        switch (level){
-            case LEVEL_SUPERADMIN:
-                return R.drawable.ic_person_black_24dp;
-            case LEVEL_ADMIN:
-                return R.drawable.ic_person_black_24dp;
-            case LEVEL_WARTAWAN:
-                return R.drawable.ic_person_black_24dp;
-            default:
-                return R.drawable.ic_person_black_24dp;
-        }
-    }
-
     /**
      * Login pada server Siwarta. Nantinya username dan password akan dimasukkan ke URL menjadi seperti:<br>
      *     <code>http://localhost/siwarta/login.php?username=dodisyahputra&password=fdb7df4d0887a55bcf80a229d548487a</code>
      * @return <code>true</code> jika login sukses
      */
-    public static boolean loginOnline(Context context, String username, String password) {
+    public static boolean loginOnline(Context context, String username, String password, String table) {
         String baseUrl = App.HOST_URL + "login.php";
 //        HashCode hashPassword = Hashing.md5().hashString(password, Charset.defaultCharset());
         HttpUrl urlBuilder = HttpUrl.parse(baseUrl).newBuilder()
                 .addQueryParameter("username", username)
                 .addQueryParameter("password", password)
+                .addQueryParameter("table", table)
                 .build();
         Request request = new Request.Builder()
                 .url(urlBuilder.url())
@@ -130,6 +134,7 @@ public class BaseUser extends RealmObject implements BaseLogin {
     private static void saveSession(Context context, BaseUser user){
         SharedPreferences preferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE);
         preferences.edit()
+                .putInt("id", user.getId())
                 .putInt("level", user.level)
                 .putString("username", user.username)
                 .putString("nama", user.nama)
@@ -138,6 +143,7 @@ public class BaseUser extends RealmObject implements BaseLogin {
 
     private static BaseUser getSession(SharedPreferences preferences){
         BaseUser user = new BaseUser();
+        user.id = preferences.getInt("id", 0);
         user.level = preferences.getInt("level", LEVEL_OPD);
         user.username = preferences.getString("username", null);
         user.nama = preferences.getString("nama", null);
@@ -146,8 +152,9 @@ public class BaseUser extends RealmObject implements BaseLogin {
 
     private static BaseUser fromJSON(JSONObject o) throws JSONException {
         BaseUser user = new BaseUser();
+        user.setId(o.has("id_admin") ? o.getInt("id_admin") : o.getInt("id_superadmin"));
         user.username = o.getString("username");
-        user.nama = o.getString("nama");
+        user.nama = o.getString(o.has("nama_admin") ? "nama_admin" : "nama_superadmin");
         user.level = o.getInt("level");
         return user;
     }
@@ -155,14 +162,16 @@ public class BaseUser extends RealmObject implements BaseLogin {
     @SuppressWarnings("unchecked")
     public static BaseLogin getUser(Context context){
         SharedPreferences preferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE);
-        switch (preferences.getInt("level", LEVEL_OPD)){
+        switch (preferences.getInt("level", 0)){
             case LEVEL_SUPERADMIN:
             case LEVEL_ADMIN:
                 return getSession(preferences);
             case LEVEL_WARTAWAN:
                 return Wartawan.getSession(preferences);
-            default:
+            case LEVEL_OPD:
                 return UserOpd.getSession(preferences);
+            default:
+                return null;
         }
     }
 

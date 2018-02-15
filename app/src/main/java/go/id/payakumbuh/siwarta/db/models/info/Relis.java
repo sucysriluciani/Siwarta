@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.Set;
 
 import go.id.payakumbuh.siwarta.db.models.login.UserOpd;
+import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -17,8 +19,11 @@ public class Relis extends RealmObject {
     public Date tgl_kegiatan, tgl_entri;
     public String nama_kegiatan, dihadiri, rangkuman, kontak;
     public boolean lock;
-    public Set<Integer> dists;
-    public Set<String> files;
+    public RealmList<Integer> dists;
+    public RealmList<String> files;
+
+    @Ignore
+    public int id_user_opd;
 
     public UserOpd userOpd;
 }
