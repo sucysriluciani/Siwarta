@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Siwarta</string>
     <string name="empty_warning">Tidak boleh kosong</string>
+    <string name="no_network">Jaringan tidak tersedia</string>
 </resources>

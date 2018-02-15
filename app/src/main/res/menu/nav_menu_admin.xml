@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group_main"
+        android:checkableBehavior="single">
+
+        <item android:id="@+id/nav_account_opd"
+            android:title="Akun OPD"/>
+
+        <item android:id="@+id/nav_account_wartawan"
+            android:title="Akun wartawan"/>
+
+        <item android:id="@+id/nav_pejabat"
+            android:title="Pejabat"/>
+
+        <item android:id="@+id/nav_opd"
+            android:title="Organisasi Perangkat Daerah"/>
+
+        <item android:id="@+id/nav_media"
+            android:title="Media"/>
+    </group>
+
+    <group android:id="@+id/group_profile"
+        android:checkableBehavior="none">
+
+    </group>
+</menu>

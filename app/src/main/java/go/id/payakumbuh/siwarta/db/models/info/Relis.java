@@ -1,18 +1,24 @@
-package go.id.payakumbuh.siwarta.db.models;
+package go.id.payakumbuh.siwarta.db.models.info;
 
 import java.util.Date;
 import java.util.Set;
 
+import go.id.payakumbuh.siwarta.db.models.login.UserOpd;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by anggrayudi on 25/01/18.
  */
-public class Relis {
+public class Relis extends RealmObject {
 
+    @PrimaryKey
     public int id;
-    public int id_user;
     public Date tgl_kegiatan, tgl_entri;
     public String nama_kegiatan, dihadiri, rangkuman, kontak;
     public boolean lock;
     public Set<Integer> dists;
     public Set<String> files;
+
+    public UserOpd userOpd;
 }

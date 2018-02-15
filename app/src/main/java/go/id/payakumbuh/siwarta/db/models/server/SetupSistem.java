@@ -1,4 +1,6 @@
-package go.id.payakumbuh.siwarta.db.models;
+package go.id.payakumbuh.siwarta.db.models.server;
+
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by anggrayudi on 25/01/18.
@@ -6,6 +8,7 @@ package go.id.payakumbuh.siwarta.db.models;
 
 public class SetupSistem {
 
+    @PrimaryKey
     public int id;
     public String nama, nilai;
 }

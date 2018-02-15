@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group_main"
+        android:checkableBehavior="single">
+
+        <item android:id="@+id/nav_account_admin"
+            android:title="Akun admin"/>
+
+        <item android:id="@+id/nav_account_opd"
+            android:title="Akun OPD"/>
+
+        <item android:id="@+id/nav_account_wartawan"
+            android:title="Akun wartawan"/>
+    </group>
+
+    <group android:id="@+id/group_profile"
+        android:checkableBehavior="none">
+        
+    </group>
+</menu>
