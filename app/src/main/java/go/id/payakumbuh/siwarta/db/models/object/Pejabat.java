@@ -43,8 +43,10 @@ public class Pejabat extends RealmObject {
         pejabat.warna = o.getString("warna");
         pejabat.no_hp = o.getString("no_hp");
         pejabat.eselon = o.getString("eselon");
-        pejabat.opd = Opd.fromJSON(o.getJSONObject("opd"));
-        pejabat.id_opd = pejabat.opd.id;
+        if (o.has("opd")) {
+            pejabat.opd = Opd.fromJSON(o.getJSONObject("opd"));
+            pejabat.id_opd = pejabat.opd.id;
+        }
         return pejabat;
     }
 

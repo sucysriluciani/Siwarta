@@ -20,7 +20,7 @@ import go.id.payakumbuh.siwarta.R;
 /**
  * Created by anggrayudi on 15/02/18.
  */
-public class OpdFragment extends Fragment {
+public class OpdFragment extends Fragment implements FragmentActionImpl {
 
     public static OpdFragment newInstance() {
         Bundle args = new Bundle();
@@ -29,11 +29,29 @@ public class OpdFragment extends Fragment {
         return fragment;
     }
 
+    @BindView(android.R.id.list) ListView listView;
+    @BindView(R.id.txt_empty) TextView txtEmpty;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-
+        View view = inflater.inflate(R.layout.base_list_view, container, false);
+        ButterKnife.bind(this, view);
         return view;
+    }
+
+    @Override
+    public void delete() {
+
+    }
+
+    @Override
+    public void selectAll() {
+
+    }
+
+    @Override
+    public void sort(boolean descending) {
+
     }
 }

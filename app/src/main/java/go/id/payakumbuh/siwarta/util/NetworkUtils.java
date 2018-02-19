@@ -63,6 +63,7 @@ public final class NetworkUtils {
                         RealmList<UserOpd> userOpds = new RealmList<>();
                         userOpds.addAll(UserOpd.getUserOpds());
                         realm.insertOrUpdate(userOpds);
+                        System.out.println(userOpds.size());
 
                         RealmList<Wartawan> wartawans = new RealmList<>();
                         wartawans.addAll(Wartawan.getWartawans());

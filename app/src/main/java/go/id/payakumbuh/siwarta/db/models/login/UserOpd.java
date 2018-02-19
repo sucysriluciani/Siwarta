@@ -102,8 +102,10 @@ public class UserOpd extends RealmObject implements BaseLogin {
         userOpd.domain = o.getString("domain");
         userOpd.lock = o.getBoolean("lock");
         userOpd.waktu = new Date(o.getLong("waktu"));
-        userOpd.opd = Opd.fromJSON(o.getJSONObject("opd"));
-        userOpd.id_opd = userOpd.opd.id;
+        if (o.has("opd")) {
+            userOpd.opd = Opd.fromJSON(o.getJSONObject("opd"));
+            userOpd.id_opd = userOpd.opd.id;
+        }
         return userOpd;
     }
 

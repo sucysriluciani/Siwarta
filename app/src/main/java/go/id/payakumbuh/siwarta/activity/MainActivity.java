@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,11 +23,15 @@ import butterknife.ButterKnife;
 import go.id.payakumbuh.siwarta.R;
 import go.id.payakumbuh.siwarta.db.models.login.BaseLogin;
 import go.id.payakumbuh.siwarta.db.models.login.BaseUser;
+import go.id.payakumbuh.siwarta.db.models.object.JenisMedia;
+import go.id.payakumbuh.siwarta.db.models.object.Media;
 import go.id.payakumbuh.siwarta.db.models.object.Opd;
+import go.id.payakumbuh.siwarta.fragment.ActionModeActivityCallback;
 import go.id.payakumbuh.siwarta.fragment.AdminAccountFragment;
 import go.id.payakumbuh.siwarta.fragment.OpdAccountFragment;
 import go.id.payakumbuh.siwarta.fragment.OpdFragment;
 import go.id.payakumbuh.siwarta.util.NetworkUtils;
+import io.realm.Realm;
 
 import static go.id.payakumbuh.siwarta.db.models.login.BaseUser.LEVEL_ADMIN;
 import static go.id.payakumbuh.siwarta.db.models.login.BaseUser.LEVEL_OPD;
@@ -34,7 +39,7 @@ import static go.id.payakumbuh.siwarta.db.models.login.BaseUser.LEVEL_SUPERADMIN
 import static go.id.payakumbuh.siwarta.db.models.login.BaseUser.LEVEL_WARTAWAN;
 
 public class MainActivity extends BaseActivity implements
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener, ActionModeActivityCallback {
 
     private static final String TAG = "MainActivity";
 
@@ -73,7 +78,7 @@ public class MainActivity extends BaseActivity implements
                 navigationView.inflateMenu(R.menu.nav_menu_user_opd);
                 break;
         }
-        if (savedInstanceState == null && realm.where(Opd.class).count() == 0)
+        if (realm.where(JenisMedia.class).count() == 0)
             updateDatabase();
 
         View view = navigationView.getHeaderView(0);
@@ -92,9 +97,21 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = null;
         switch (item.getItemId()){
-
+            case R.id.nav_account_admin:
+                fragment = AdminAccountFragment.newInstance();
+                break;
+            case R.id.nav_account_opd:
+                fragment = OpdAccountFragment.newInstance();
+                break;
         }
+        if (fragment != null){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, fragment, TAG)
+                    .commitNow();
+        }
+
         getSupportActionBar().setTitle(item.getTitle());
         drawer.closeDrawer(GravityCompat.START);
         checkedNavId = item.getItemId();
@@ -165,5 +182,15 @@ public class MainActivity extends BaseActivity implements
             });
         } else
             Toast.makeText(this, R.string.no_network, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCreateActionMode(ActionMode mode, Menu menu) {
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode mode) {
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 }

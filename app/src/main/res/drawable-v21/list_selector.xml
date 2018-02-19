@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?android:attr/colorControlHighlight">
+    <!-- https://stackoverflow.com/a/37880437/3922207 -->
+    <!-- Ripple mask - applied to all selector states -->
+    <item android:id="@android:id/mask">
+        <color android:color="#dcffffff"/>
+    </item>
+    <!-- Selected state of item -->
+    <item>
+        <selector>
+            <item android:state_activated="true">
+                <color android:color="@color/list_selected"/>
+            </item>
+            <item android:state_checked="true">
+                <color android:color="@color/bg_list_checked"/>
+            </item>
+        </selector>
+    </item>
+</ripple>

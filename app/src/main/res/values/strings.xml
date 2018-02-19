@@ -3,5 +3,9 @@
     <string name="empty_warning">Tidak boleh kosong</string>
     <string name="no_network">Jaringan tidak tersedia</string>
     <string name="empty">Kosong</string>
+    <string name="selected_count">%1$d dipilih</string>
+    <string name="delete">Hapus</string>
+    <string name="select_all">Pilih semua</string>
+    <string name="content_delete">Apakah Anda yakin ingin menghapus %d data?</string>
 
 </resources>
